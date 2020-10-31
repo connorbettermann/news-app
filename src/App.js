@@ -1,22 +1,23 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch("https://content.guardianapis.com/search?api-key=1608a221-3887-40b9-be08-b111fe2a92d7").then(
+        response => response.json()
+      )
+      .then(response => console.log(response));
+      setData(result);
+    };
+    fetchData();   
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>News</h1>
       </header>
     </div>
   );
