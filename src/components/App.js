@@ -28,6 +28,7 @@ class App extends Component {
         news: data.response.results,
         totalPages: data.response.pages
       })
+      console.log(this.state.totalPages);
     })
     .catch(error => {
       console.log(error);
@@ -64,7 +65,8 @@ class App extends Component {
     .then(data => {
       this.setState({
         news: data.response.results,
-        currentPage: pageNumber
+        currentPage: pageNumber,
+        totalPages: data.response.pages
       })
     })
     .catch(error => {
