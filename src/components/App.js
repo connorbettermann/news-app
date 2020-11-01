@@ -17,6 +17,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log(`componentDidiMount() Fetch: https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`);
     fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`)
     .then(data => data.json())
     .then(data => {
@@ -30,8 +31,9 @@ class App extends Component {
   
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(`handleSubmit() Fetch: https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`);
 
-    fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}&q=${this.state.searchTerm}&show-fields=thumbnail`)
+    fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`)
     .then(data => data.json())
     .then(data => {
       console.log(data);
@@ -44,12 +46,13 @@ class App extends Component {
 
   handleChange = (e) => {
       this.setState({
-        searchTerm: e.target.value
+        searchTerm: `&q=${e.target.value}`
       })
   }
 
   nextPage = (pageNumber) => {
-    fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}&q=${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`)
+    console.log(`nextPage() Fecth: https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`);
+    fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`)
     .then(data => data.json())
     .then(data => {
       console.log(data);
