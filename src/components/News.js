@@ -11,7 +11,7 @@ const News = (props) => {
                     <span className="card-title grey darken-3">{props.title}</span>
                 </div>
                 <div className="card-content">
-                    <p><a href="#"></a>{props.title}</p>
+                    
                 </div>
             </div>
         </div>
