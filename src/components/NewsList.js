@@ -9,7 +9,7 @@ const NewsList = (props) => {
                     {
                         props.news.map((item, i) => {
                             return (
-                                <News key={i} title={item.webTitle} image={item.fields.thumbnail}/>
+                                <News key={i} title={item.webTitle} image={item.fields ? item.fields.thumbnail : null}/>
                             )
                         })
                     }

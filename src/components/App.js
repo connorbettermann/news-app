@@ -11,36 +11,43 @@ class App extends Component {
       news: [],
       searchTerm: '',
       currentPage: 1,
-      totalPages: 0
-    }
+      totalPages: 0,
+    };
     this.apiKey = '1608a221-3887-40b9-be08-b111fe2a92d7'
+    this.nextPage = this.nextPage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    console.log(`componentDidiMount() Fetch: https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`);
-    fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`)
+  async componentDidMount() {
+    console.log(`componentDidMount() Fetch: https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`);
+    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`)
     .then(data => data.json())
     .then(data => {
-      console.log(data);
       this.setState({
         news: data.response.results,
         totalPages: data.response.pages
       })
     })
+    .catch(error => {
+      console.log(error);
+    })
   }
   
-  handleSubmit = (e) => {
+  handleSubmit = async(e) => {
     e.preventDefault();
     console.log(`handleSubmit() Fetch: https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`);
 
-    fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`)
+    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`)
     .then(data => data.json())
     .then(data => {
-      console.log(data);
       this.setState({
         news: data.response.results,
         totalPages: data.response.pages
       })
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 
@@ -50,16 +57,18 @@ class App extends Component {
       })
   }
 
-  nextPage = (pageNumber) => {
+  nextPage = async (pageNumber) => {
     console.log(`nextPage() Fecth: https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`);
-    fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`)
+    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`)
     .then(data => data.json())
     .then(data => {
-      console.log(data);
       this.setState({
         news: data.response.results,
         currentPage: pageNumber
       })
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 
