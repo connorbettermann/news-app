@@ -15,3 +15,7 @@ code {
 ::placeholder {
   color: rgb(161, 161, 161);
 }
+
+.collection {
+  border: 0;
+}

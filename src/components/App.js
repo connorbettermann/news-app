@@ -99,7 +99,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App blue-grey lighten-2">
+      <div className="App blue-grey lighten-3">
         <Nav />
         <div className="row">
           <SideBar handleSection={this.handleSection}/>
