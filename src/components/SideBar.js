@@ -3,7 +3,7 @@ import React from 'react';
 const SideBar = (props) => {
     return (
         //Sidebar list of categories that can be searched
-        <div className="collection col s3">
+        <div className="collection col s2">
             <a href="#!" className="collection-item" onClick={() => props.handleSection("", "Recent News")}>Recent News</a>
             <a href="#!" className="collection-item" onClick={() => props.handleSection("&section=world", "World News")}>World News</a>
             <a href="#!" className="collection-item" onClick={() => props.handleSection("&section=us-news", "US News")}>US News</a>

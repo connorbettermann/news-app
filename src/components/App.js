@@ -86,10 +86,10 @@ class App extends Component {
     .then(data => {
       this.setState({
         news: data.response.results,
-        currentPage: 1,
-        totalPages: data.response.pages,
-        sectionTerm: searchString,
-        sectionTitle: sectionLabel
+        currentPage: 1, //reset current page to 1
+        totalPages: data.response.pages, //number of pages returned
+        sectionTerm: searchString, //sectionID to input into api call
+        sectionTitle: sectionLabel //Section title to display above articles
       })
     })
     .catch(error => {
@@ -103,7 +103,7 @@ class App extends Component {
         <Nav />
         <div className="row">
           <SideBar handleSection={this.handleSection}/>
-          <div className="col s9 blue-grey lighten-5">
+          <div className="col s10 blue-grey lighten-5">
             <SearchArea currentSection={this.state.sectionTitle} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
             <NewsList news={this.state.news}/>
             <Pagination pages={this.state.totalPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/>
