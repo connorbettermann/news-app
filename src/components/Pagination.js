@@ -15,13 +15,22 @@ const Pagination = (props) => {
             pageLinks.push(<li className={`waves-effect ${active}`} key={i} onClick={() => props.nextPage(i)}><a href="#!">{i}</a></li>)
         }
     } else {
+        //if the total pages returned is less than 10, only display max number of pages
+        if(props.pages < 10){
+            for(let i = 1; i <= props.pages; i++) {
+                let active = props.currentPage === i ? 'active' : '';
     
-    //display initial 10 pages in pagination bar
-    for(let i = 1; i <= 10; i++) {
-        let active = props.currentPage === i ? 'active' : '';
+                pageLinks.push(<li className={`waves-effect ${active}`} key={i} onClick={() => props.nextPage(i)}><a href="#!">{i}</a></li>)
+            }
+        } else {
+            //display initial 10 pages in pagination bar
+            for(let i = 1; i <= 10; i++) {
+                let active = props.currentPage === i ? 'active' : '';
 
-        pageLinks.push(<li className={`waves-effect ${active}`} key={i} onClick={() => props.nextPage(i)}><a href="#!">{i}</a></li>)
-    }
+                pageLinks.push(<li className={`waves-effect ${active}`} key={i} onClick={() => props.nextPage(i)}><a href="#!">{i}</a></li>)
+            }
+        }
+        
     }
 
     //If there are more than 5 pages before max page, display formatting and max page 

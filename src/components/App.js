@@ -24,6 +24,7 @@ class App extends Component {
 
   //Initial article view load
   async componentDidMount() {
+    console.log("component mount call");
     await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`)
     .then(data => data.json()) //convert returned data to json
     .then(data => {
@@ -40,6 +41,7 @@ class App extends Component {
   
   //Handle submission from search text input
   handleSubmit = async(e) => {
+    console.log("handle submit call");
     e.preventDefault();
     await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`)
     .then(data => data.json()) //convert returned data to json
@@ -65,6 +67,7 @@ class App extends Component {
 
   //Handle transferring to another page
   nextPage = async (pageNumber) => {
+    console.log("next page call");
     await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}${this.state.sectionTerm}`)
     .then(data => data.json()) //convert data to json
     .then(data => {
@@ -81,7 +84,8 @@ class App extends Component {
   
   //Handle a section option being selected in the sidebar
   handleSection = async (searchString, sectionLabel) => {
-    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${searchString}&show-fields=thumbnail&page=1`)
+    console.log("handle section call");
+    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}${searchString}&show-fields=thumbnail&page=1`)
     .then(data => data.json())
     .then(data => {
       this.setState({
