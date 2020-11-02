@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Nav = () => {
+    //Display Nav bar
     return (
         <nav className="blue-grey darken-3">
             <div className="nav-wrapper container">

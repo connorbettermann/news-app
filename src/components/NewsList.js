@@ -2,6 +2,7 @@ import React from 'react';
 import News from './News';
 
 const NewsList = (props) => {
+    //Create list of news articles from news sent in through props
     return (
         <div className="container">
             <div className="row">

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const News = (props) => {
+    //If no thumbnail image is present, display news article card with placeholder image
     if(props.image == null){
         return (
         <div className="col s6">
@@ -14,6 +15,7 @@ const News = (props) => {
         </div>
         )
     } else {
+    //Display regular news article card
     return (
         <div className="col s12 m12 l6 xl6">
             <div className="card hoverable"><a href={props.url} target="__blank" rel="noopener">

@@ -10,11 +10,11 @@ class App extends Component {
     super()
     this.state = {
       news: [],
-      searchTerm: '',
-      sectionTerm: '',
-      sectionTitle: 'Recent News',
-      currentPage: 1,
-      totalPages: 0,
+      searchTerm: '', //string passed to api call for search query
+      sectionTerm: '', //section string passed to api call for search query
+      sectionTitle: '', //Section/search string to be displayed above articles
+      currentPage: 1, 
+      totalPages: 0, //Total number of pages returned by api call
     };
     this.apiKey = '1608a221-3887-40b9-be08-b111fe2a92d7'
     this.nextPage = this.nextPage.bind(this);
@@ -22,33 +22,32 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  //Initial article view load
   async componentDidMount() {
-    console.log(`componentDidMount() Fetch: https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`);
     await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}&show-fields=thumbnail`)
-    .then(data => data.json())
+    .then(data => data.json()) //convert returned data to json
     .then(data => {
       this.setState({
-        news: data.response.results,
-        totalPages: data.response.pages
+        news: data.response.results, //set array of displayed articles
+        totalPages: data.response.pages, //number of pages returned
+        sectionTitle: "Recent News"
       })
-      console.log(this.state.totalPages);
     })
     .catch(error => {
       console.log(error);
     })
   }
   
+  //Handle submission from search text input
   handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(`handleSubmit() Fetch: https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`);
-
     await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`)
-    .then(data => data.json())
+    .then(data => data.json()) //convert returned data to json
     .then(data => {
       this.setState({
-        news: data.response.results,
-        totalPages: data.response.pages,
-        sectionTitle: this.state.searchTerm.replace('&q=', '')
+        news: data.response.results, //set array of displayed articles
+        totalPages: data.response.pages, //number of pages returned
+        sectionTitle: this.state.searchTerm.replace('&q=', '') //update section title with formatted string
       })
     })
     .catch(error => {
@@ -56,29 +55,31 @@ class App extends Component {
     })
   }
 
+  //Handle change in search text input
   handleChange = (e) => {
       this.setState({
-        searchTerm: `&q=${e.target.value}`
+        searchTerm: `&q=${e.target.value}` //update search term with text input in search bar
 
       })
   }
 
+  //Handle transferring to another page
   nextPage = async (pageNumber) => {
-    console.log(`nextPage() Fecth: https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`);
     await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}${this.state.sectionTerm}`)
-    .then(data => data.json())
+    .then(data => data.json()) //convert data to json
     .then(data => {
       this.setState({
-        news: data.response.results,
-        currentPage: pageNumber,
-        totalPages: data.response.pages
+        news: data.response.results, //set array of displayed articles
+        currentPage: pageNumber, //update current page being viewed
+        totalPages: data.response.pages //number of pages returned
       })
     })
     .catch(error => {
       console.log(error);
     })
   }
-
+  
+  //Handle a section option being selected in the sidebar
   handleSection = async (searchString, sectionLabel) => {
     await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${searchString}&show-fields=thumbnail&page=1`)
     .then(data => data.json())

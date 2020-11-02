@@ -1,5 +1,5 @@
 import React from 'react';
-
+//Display search bar and Category/Search string above returned articles
 const SearchArea = (props) => {
     return (
         <div className="container">
