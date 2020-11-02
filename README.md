@@ -41,5 +41,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## More Info
 
-This project was bootstrapped using [Creat React App].
+This project was bootstrapped using [Creat React App].  
 [My project portfolio](https://connorbettermann.github.io/)
