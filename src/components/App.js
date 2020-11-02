@@ -3,6 +3,7 @@ import Nav from './Nav'
 import SearchArea from './SearchArea'
 import NewsList from './NewsList'
 import Pagination from './Pagination'
+import SideBar from './SideBar'
 
 class App extends Component {
   constructor(){
@@ -10,6 +11,8 @@ class App extends Component {
     this.state = {
       news: [],
       searchTerm: '',
+      sectionTerm: '',
+      sectionTitle: 'Recent News',
       currentPage: 1,
       totalPages: 0,
     };
@@ -44,7 +47,8 @@ class App extends Component {
     .then(data => {
       this.setState({
         news: data.response.results,
-        totalPages: data.response.pages
+        totalPages: data.response.pages,
+        sectionTitle: this.state.searchTerm.replace('&q=', '')
       })
     })
     .catch(error => {
@@ -55,12 +59,13 @@ class App extends Component {
   handleChange = (e) => {
       this.setState({
         searchTerm: `&q=${e.target.value}`
+
       })
   }
 
   nextPage = async (pageNumber) => {
     console.log(`nextPage() Fecth: https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`);
-    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}`)
+    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail&page=${pageNumber}${this.state.sectionTerm}`)
     .then(data => data.json())
     .then(data => {
       this.setState({
@@ -74,13 +79,35 @@ class App extends Component {
     })
   }
 
+  handleSection = async (searchString, sectionLabel) => {
+    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${searchString}&show-fields=thumbnail&page=1`)
+    .then(data => data.json())
+    .then(data => {
+      this.setState({
+        news: data.response.results,
+        currentPage: 1,
+        totalPages: data.response.pages,
+        sectionTerm: searchString,
+        sectionTitle: sectionLabel
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
   render() {
     return (
-      <div className="App">
+      <div className="App blue-grey lighten-2">
         <Nav />
-        <SearchArea handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
-        <NewsList news={this.state.news}/>
-        <Pagination pages={this.state.totalPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/>
+        <div className="row">
+          <SideBar handleSection={this.handleSection}/>
+          <div className="col s9 blue-grey lighten-5">
+            <SearchArea currentSection={this.state.sectionTitle} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
+            <NewsList news={this.state.news}/>
+            <Pagination pages={this.state.totalPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/>
+          </div>
+        </div>
       </div>
     )
   }
