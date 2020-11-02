@@ -24,3 +24,8 @@ code {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: 400;
 }
+
+.card {
+  min-height: 320px;
+  background-color: #37474f;
+}
