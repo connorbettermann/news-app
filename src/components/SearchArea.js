@@ -14,7 +14,7 @@ const SearchArea = (props) => {
                 </section>
             </div>
             <div className="center-align blue-grey-text text-darken-1">
-                <h4>Showing results for: {props.currentSection}</h4>
+                <h4>Showing results for: {props.currentSearch && <span><b>{props.currentSearch}</b> in </span>} {props.currentSection}</h4>
             </div>
         </div>
     )

@@ -11,8 +11,9 @@ class App extends Component {
     this.state = {
       news: [],
       searchTerm: '', //string passed to api call for search query
+      searchTitle: '', //search title to be displayed above articles
       sectionTerm: '', //section string passed to api call for search query
-      sectionTitle: '', //Section/search string to be displayed above articles
+      sectionTitle: '', //Section search string to be displayed above articles
       currentPage: 1, 
       totalPages: 0, //Total number of pages returned by api call
     };
@@ -42,13 +43,14 @@ class App extends Component {
   //Handle submission from search text input
   handleSubmit = async(e) => {
     e.preventDefault();
-    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}&show-fields=thumbnail`)
+    await fetch(`https://content.guardianapis.com/search?api-key=${this.apiKey}${this.state.searchTerm}${this.state.sectionTerm}&show-fields=thumbnail&page=1`)
     .then(data => data.json()) //convert returned data to json
     .then(data => {
       this.setState({
         news: data.response.results, //set array of displayed articles
         totalPages: data.response.pages, //number of pages returned
-        sectionTitle: this.state.searchTerm.replace('&q=', '') //update section title with formatted string
+        searchTitle: this.state.searchTerm.replace('&q=', ''), //update section title with formatted string
+        currentPage: 1 //return to first page
       })
     })
     .catch(error => {
@@ -105,7 +107,7 @@ class App extends Component {
         <div className="row">
           <SideBar handleSection={this.handleSection}/>
           <div className="col s10 blue-grey lighten-5">
-            <SearchArea currentSection={this.state.sectionTitle} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
+            <SearchArea currentSearch={this.state.searchTitle} currentSection={this.state.sectionTitle} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
             <NewsList news={this.state.news}/>
             <Pagination pages={this.state.totalPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/>
           </div>
