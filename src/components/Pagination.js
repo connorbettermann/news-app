@@ -4,8 +4,8 @@ const Pagination = (props) => {
     //Array to hold the pagination links
     const pageLinks = []
 
-    //If we are on a page higher than the initial 10 pages displayed, display page 1 and formatting
-    if(props.currentPage > 10) {
+    //If we are on a page higher or equal to 10, display page 1 and formatting
+    if(props.currentPage > 9) {
         
         pageLinks.push(<li className={`waves-effect`} key={1} onClick={() => props.nextPage(1)}>...</li>)
 
