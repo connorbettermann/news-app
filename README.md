@@ -1,6 +1,6 @@
 # The Guardian News React App
 
-This app leverages The Guardian Open Platform API to provide dynamic news data instantly. Using React.js, the app allows you to view recent articles, articles sorted by category, or search for articles by keyword or phrase. Pagination allows for traversal of numerous pages of content and easy navigation.
+This app leverages The Guardian Open Platform API to provide dynamic news data instantly. Using React.js, the app allows you to view recent articles, articles sorted by category, or search for articles by keyword or phrase. Pagination allows for traversal of numerous pages of content, while a dynamic and responsive UI enables seamless navigation.
 
 ## Available Scripts
 
@@ -41,5 +41,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## More Info
 
-This project was bootstrapped using [Creat React App].  
-[My project portfolio](https://connorbettermann.github.io/)
+- This project was bootstrapped using [Creat React App].  
+- [My project portfolio](https://connorbettermann.github.io/)
+- [Reacts Docs](https://reactjs.org/docs/getting-started.html)
+- [Materialize Docs](https://materializecss.com/getting-started.html)
