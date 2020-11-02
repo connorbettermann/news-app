@@ -19,3 +19,8 @@ code {
 .collection {
   border: 0;
 }
+
+.brand-logo {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+}
